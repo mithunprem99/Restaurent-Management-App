@@ -1,0 +1,40 @@
+{% extends 'managerbase.html' %}
+{% block title %} Manager Home {% endblock title %}
+
+
+
+{% block content %}
+<h2>Manage Food</h2>
+
+
+<div class="container">
+	<div class="row">
+		{% for v in view %}
+		<div class="col-lg-3 col-md-4 col-sm-6 " >
+			<div class="card mb-5" >
+  <img src="{{v.Image.url}}" class="card-img-top" style="height: 250px;" alt="..."  >
+  <div class="card-body">
+    <h5 class="card-title">{{v.Food}}</h5>
+    <p class="card-text">{{v.Details|truncatewords:"10"|linebreaks|safe}}</p>
+    <a href="{% url 'updateFood' v.id %}" class="btn btn-primary">EDIT</a>
+    <a href="{% url 'deleteFood' v.id %}" class="btn btn-danger">DELETE</a>
+  </div>
+</div>
+			
+
+		</div>
+		{% endfor %}
+	</div>
+
+</div>
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+

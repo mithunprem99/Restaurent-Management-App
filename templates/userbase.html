@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="icon" href="/static/images/Tavern_logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/static/css/userstyle.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/icons/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/icons/css/brands.css">
+    <link rel="stylesheet" href="/static/assets/icons/css/solid.css">
+  
+<script type="text/javascript" src="/static/popper.min.js" ></script>
+<script type="text/javascript " src="/static/bootstrap.min.js" ></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script >
+        $(document).ready(function(){
+            $(".mouse").mouseenter(function(){
+                $(this).css("background",'green')
+            });
+            $(".mouse").mouseleave(function(){
+                $(this).css("background",'#212529')
+            })
+        })
+    </script>
+</head>
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+
+<div class="navbar navbar-expand-md navbar-dark bg-dark">
+<!-- <div class="container"> -->
+  <!-- <div class="row"> -->
+    <!-- <div class="col-lg col-md col-sm"> -->
+  <div class="navbar-header">
+    <div class="col-lg col-md col-sm">
+    <a class="navbar-brand" href="#">
+            <img src="/static/images/Tavern_logo.jpg" width="100" height="100">
+
+    </a>
+  </div>
+</div>
+  <!-- <div class="container"> -->
+    <!-- <div class="col-lg col-md col-sm"> -->
+  <button type ="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarMenu" >
+    <div class="col-lg col-md col-sm">
+    <ul class=" navbar-nav " style="justify-content: center;" >
+
+
+
+    
+    
+            <li class="nav-item text-white"><a href="{% url 'userHome' %}" class="nav-link mouse" id="mouse">HOME</a></li>
+            <li class="nav-item"><a href="#our" class="nav-link mouse" id="mouse">OUR_SPECIAL</a></li>
+            <li class="nav-item text-white"><a href="#spcl" class="nav-link mouse" id="mouse">TODAYS_SPECIAL</a></li>
+            <li class="nav-item"><a href="#reserve" class="nav-link mouse" id="mouse">RESERVATION</a></li>
+          
+            
+            <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle mouse" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" id="mouse"> {{request.session.Username}}</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'edituser' %}">EDIT PROFILE</a></li>
+      <li><a class="dropdown-item" href="{% url 'viewreservation' %}"><hr class="dropdown-divider">MY_RESERVATION</a></li>
+      <li><a class="dropdown-item" href="{% url 'cartView' %}"><hr class="dropdown-divider">MY_CART</a></li>
+      <li><a class="dropdown-item" href="{% url 'viewOrder' %}"><hr class="dropdown-divider">MY_ORDER</a></li>
+      <li><a class="dropdown-item" href="{% url 'viewFeedback' %}"><hr class="dropdown-divider">MY_FEEDBACKS</a></li>
+      <li><a class="dropdown-item" href="{% url 'viewComplaints' %}"><hr class="dropdown-divider">MY_COMPLAINTS</a></li>
+       <li><a class="dropdown-item" href="{% url 'viewInbox' %}"><hr class="dropdown-divider">MY_INBOX</a></li>
+
+
+      <li><a class="dropdown-item" href="{% url 'logout' %}"><hr class="dropdown-divider">LOGOUT</a></li>
+      <!-- <li><hr class="dropdown-divide   r"></li> -->
+      <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+    </ul>
+  </li>
+  <li class="nav-item"><a href="#reserve" class="nav-link mouse" id="mouse">WELCOME {{request.session.Name}}</a></li>
+        </ul>
+
+    </div>
+    </div>
+</div>
+</div>
+{% block content %}
+
+
+
+
+
+
+{% endblock %}
+
+
+<footer class="text-center text-white footer-stickey bottom  bg-dark " style="position: relative ;left: 0; bottom: 0; width: 100%; margin-top: 155px;">
+  <!-- Grid container -->
+  <div class="container pt-4">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-facebook-f"></i
+      ></a>
+
+      <!-- Twitter -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-twitter"></i
+      ></a>
+
+      <!-- Google -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-google"></i
+      ></a>
+
+      <!-- Instagram -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-instagram"></i
+      ></a>
+
+      <!-- Linkedin -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-linkedin"></i
+      ></a>
+      <!-- Github -->
+      <a
+        class="btn btn-link btn-floating btn-lg text-white m-1"
+        href="#!"
+        role="button"
+        data-mdb-ripple-color="dark"
+        ><i class="fab fa-github"></i
+      ></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-white" href="">TavrenRestaurant.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+</body>
+
+</html>

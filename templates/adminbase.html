@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}  {% endblock title %}</title>
+	<link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/images/Tavern_logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/assets/icons/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/icons/css/brands.css">
+    <link rel="stylesheet" href="/static/assets/icons/css/solid.css">
+    <script src="/static/jquery-1.8.3.min.js"></script>
+       <script type="text/javascript" src="/static/popper.min.js" ></script>
+<script type="text/javascript " src="/static/bootstrap.min.js" ></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".nav-link").click(function(){
+            $(this).addClass("active")
+        })
+    })
+</script>
+</head>
+<body>
+	<!-- navbar start -->
+
+		<div class="navbar navbar-expand -lg navbar-dark shadow-5-strong bg-info" style="background-color:transparent">
+  		<div class="container-fluid col-lg-12 col-md-4 col-sm=-3">
+  		<a href="#" class="navbar-brand"><img src="../static/images/Tavern_logo.jpg" width="10%" height="10%"></a>
+  		<ul class="navbar-nav">
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="{% url 'adminhome' %}">HOME</a>
+  			</li>
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="#">MENU'S</a>
+  			</li>
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="#">ABOUT</a>
+  			</li>
+  			
+  			<!-- <li class="nav-item">
+  				<a class="nav-link text-primary" href="#">CONTACT</a>
+  			</li> -->
+                       <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle mouse" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" id="mouse"> {{request.session.Username}}</a>
+    <ul class="dropdown-menu">
+     
+      <li><a class="dropdown-item" href="{% url 'logout' %}"><hr class="dropdown-divider">LOGOUT</a></li>
+        
+  		</ul>
+  	</div>
+  	</div>
+
+	<!-- navbarend -->
+	<!-- sidebar start-->
+
+	<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item" style="width: 187px;">
+                        <a href="{% url 'adminhome' %}" class="nav-link align-middle px-0 mb-0 ">
+                            <i class="fa fa-home"></i> <span class="ms-1 d-none d-sm-inline ">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" style="width: 187px;">
+                        <a href="{% url 'addManager' %}"  class="nav-link px-0 align-middle ">
+                            <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">Register Manager</span> </a>
+                     
+                    </li>
+                    <li class="nav-item" style="width: 187px;">
+                        <a href="{% url 'adminmanagerView' %}" class="nav-link px-0 align-middle">
+                            <i class="fa-solid fa-users"></i> <span class="ms-1 d-none d-sm-inline">View Managers</span></a>
+                    </li>
+                    <li class="nav-item" style="width: 187px;">
+                        <a href="{% url 'addstaff' %}"  class="nav-link px-0 align-middle ">
+                            <i class="fa-solid fa-face-smile"></i> <span class="ms-1 d-none d-sm-inline">Add Staff</span></a>
+                        
+                    </li>
+                    <li class="nav-item" style="width: 187px;">
+                        <a href="{% url 'viewStaff' %}"  class="nav-link px-0 align-middle ">
+                            <i class="fa fa-tasks"></i> <span class="ms-1 d-none d-sm-inline">Manage Staff</span></a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="{% url 'viewCustomerfood' %}" class="nav-link px-0 align-middle">
+                            <i class="fa fa-cutlery"></i> <span class="ms-1 d-none d-sm-inline">Order Details</span> </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'viewOnlineCustomerfood' %}" class="nav-link px-0 align-middle">
+                            <i class="fa fa-cutlery"></i> <span class="ms-1 d-none d-sm-inline">Online Order Details</span> </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'viewReservations' %}"   class="nav-link px-0 align-middle">
+                            <i class="fa fa-ticket"></i> <span class="ms-1 d-none d-sm-inline">Reservations</span> </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'adminviewAttendance' %}"   class="nav-link px-0 align-middle">
+                            <i class="fa fa-dashboard"></i> <span class="ms-1 d-none d-sm-inline">Attendance</span> </a>
+                    </li>
+                     <li>
+                        <a href="{% url 'feedbacks' %}"   class="nav-link px-0 align-middle">
+                            <i class="fa-solid fa-comments"></i> <span class="ms-1 d-none d-sm-inline">FeedBacks</span> </a>
+                    </li>
+                     <li>
+                        <a href="{% url 'viewcomplaints' %}"   class="nav-link px-0 align-middle">
+                            <i class="fas fa-frown"></i> <span class="ms-1 d-none d-sm-inline">Complaints</span> </a>
+                    </li>
+                </ul>
+                <hr>
+             
+            </div>
+        </div>
+        <div class="col py-3">
+
+        	<!-- content goes here -->
+        	{% block content %}
+
+
+        	{% endblock %}
+
+
+
+        	<!-- content ends here -->
+            
+        </div>
+    </div>
+</div>
+
+
+
+	<!-- sidebarend -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="footer  bg-info text-center">
+			&copy;copyright @ TavernRestaurant
+        <br>All right reserved
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+{% extends 'adminbase.html' %}
+{% block title %} Add staff details {% endblock title %}
+
+{% block content %}
+<script>
+    
+    function validation(){
+    var alpha=/^[a-z A-Z]+$/;
+    var num=/^[0-9]+$/;
+    var regex=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+
+
+
+    var name=document.getElementById('Name');
+    var address=document.getElementById('Address')
+    var gender=document.myform.Gender;
+    var dob=document.getElementById('DOB')
+    
+    var phone=document.getElementById('Phone');
+    var file=document.getElementById('file');
+    var email=document.getElementById('Email');
+    // var username=document.getElementById('Username');
+    // var password=document.getElementById('Password');
+    if(name.value.length==0){
+      alert('Enter your name');
+      return false;
+
+    }
+    else if(!name.value.match(alpha))
+        {
+        alert("Enter a valid name")
+        Name.focus();
+        return false;
+        }
+    else if(Address.value.length==0){
+        alert("Enter address");
+        return false;
+        }
+    else if(Gender[0].checked==false && Gender[1].checked==false)
+    {
+        alert('enter a valid gender');
+        return false;
+    }
+    else if(dob.value.length==0){
+        alert("Enter dob");
+        return false;
+        }
+    else if(phone.value.length==0){
+        alert('Enter your phone number')
+        return false;
+    }
+    else if(!Phone.value.match(num)){
+            alert("enter a valid number");
+            Phone.focus();
+            return false;
+        }
+    
+    else if(file.value.length==0){
+            alert("Enter a file");
+            return false;
+        }
+   
+    else if(email.value.length==0){
+      alert('Enter the email')
+      return false;
+    }
+    else if(!email.value.match(regex)){
+        alert("Enter a valid email");
+        email.focus()
+        return false;
+
+    }
+    else{
+            return true;
+        }
+
+
+
+    }
+
+
+
+
+
+
+</script>
+<h2>Add staff</h2>
+<form method="POST" action="{% url 'addstaffAction' %}" enctype="multipart/form-data" name="myform">
+	{% csrf_token %}
+	<table>
+                    <tr>
+                        <th>Name:</th>
+                        <td ><input type="text" name="name" class="form-control" id="Name"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><textarea class="form-control" name="address" id="Address"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Gender:</th>
+                        <td><input type="radio" name="gender" class="form-check-input" value="male" id="Gender">Male
+                        <input type="radio" name="gender" class="form-check-input" value="female" id="Gender">Female</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            DOB:
+                        </th>
+                        <td><input type="date" name="dob" class="form-control" id="DOB"> </td>
+                    </tr>
+                    <tr>
+                        <th>Phone:</th>
+                        <td><input type="text" name="phone" class="form-control" id="Phone"></td>
+                    </tr>
+                    <tr>
+                        <th>Profile_Image:</th>
+                        <td><input type="file" name="file" class="form-control" id="file"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Email:
+                        </th>
+                        <td><input type="text" name="email" class="form-control" id="Email"></td>
+                    </tr>
+                    <tr><th>Designation:</th>
+
+
+                        <td><input type="text" name="desg" class="form-control" id="Desg"></td>
+
+                    </tr>
+                    
+                    <tr>
+                        <td><input type="submit" value="Register" class="btn btn-primary" onclick="return validation()"></td>
+                        <td><input type="reset" value="Clear" class="btn btn-warning"></td>
+                    </tr>
+                </table>
+	
+
+
+</form>
+
+
+ {%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+{% endblock content %}

@@ -1,0 +1,57 @@
+{% extends 'managerbase.html' %}
+{% block title %} Edit Events {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+	<div class="row border">
+		<div class="col-lg-6 col-md-4 col-sm-2">
+<h2>Events</h2>
+{% for v in views %}
+<form method="POST" action="{% url 'updateEventAction' %}">
+	<input type="hidden" name="id" value="{{v.id}}">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<th>Event_Name:</th>
+			<td><input type="text" name="name" class="form-control" value="{{v.Name}}"></td>
+		</tr>
+		<tr>
+			<th>Organizer:</th>
+			<td><input type="text" name="org" class="form-control" value="{{v.Organizer}}"></td>
+		</tr>
+		<tr>
+			<th>Date:</th>
+			<td><input type="date" name="date" class="form-control" value="{{v.Date}}"></td>
+		</tr>
+		<tr>
+			<th>
+				Event_Description:
+			</th>
+			<td><textarea class="form-control" name="details">{{v.Details}}</textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="ADD" class="btn btn-success w-100"></td>
+		</tr>
+	</table>
+
+
+
+
+</form>
+{% endfor %}
+</div>
+	</div>
+</div>
+
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+{% endblock content %}
+
+

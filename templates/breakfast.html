@@ -1,0 +1,273 @@
+
+{% extends 'userbase.html' %}
+{% block title %} User Home {% endblock title %}
+{% block content %}
+
+<script type="text/javascript">
+  
+  function validation(){
+
+    var num=/^[0-9]+$/;
+
+    var name=document.getElementById('Name');
+    var phone=document.getElementById('Phone');
+    var people=document.getElementById('People');
+    var tables=document.getElementById('Table');
+    var date=document.getElementById('Date');
+    var time=document.getElementById('Time');
+
+    if(name.value.length==0){
+      alert('Enter your name');
+      return false;
+
+    }
+    else if(phone.value.length==0){
+      alert('Enter your phone number')
+      return false;
+    }
+    else if(people.value.length==0){
+      alert('Enter the no of peoples')
+      return false;
+    }
+    else if(tables.value.length==0){
+      alert('Select a table')
+      return false;
+    }
+    else if(date.value.length==0){
+      alert('Select a date')
+      return false;
+    }
+     else if(time.value.length==0){
+      alert('Select a time')
+      return false;
+    }
+    else{
+            return true;
+        }
+  }
+
+
+
+
+</script>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/static/images/user1.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/static/images/bg-3.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/static/images/bg-2.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- <div class="head"><h2>Welcome to the world</h2></div> -->
+
+<div class="container">
+<div class="row mt-2 " id="our">
+  <div class="col-lg col-md col-sm ">
+    <div class="card bg-secondary" style="width: 18rem; height: 29rem;">
+  <img src="/static/images/mastrchef.jpg" class="card-img-top bg-dark " alt="..." width="20%" height="75%"><hr class="divider">
+  <div class="card-body text-white">
+    <h5 class="card-title">Experienced Chef<i class="fa-solid fa-user-chef"></i></h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+</div>
+<div class="col-lg col-md col-sm p-1">
+    <div class="card bg-secondary" style="width: 18rem; height: 29rem;">
+  <img src="/static/images/quality.webp" class="card-img-top bg-dark " alt="..."><hr class="divider">
+  <div class="card-body text-white">
+    <h5 class="card-title">QUALITY FOOD<i class="fa-solid fa-user-chef"></i></h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
+  </div>
+  <div class="col-lg col-md col-sm p-1">
+    <div class="card bg-secondary" style="width: 18rem; height: 29rem;">
+  <img src="/static/images/help.png" class="card-img-top bg-dark " alt="..."><hr class="divider">
+  <div class="card-body text-white">
+    <h5 class="card-title">24/7 HELP<i class="fa-solid fa-user-chef"></i></h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+
+
+  </div>
+
+
+</div>
+
+</div>
+<div class="container">
+
+<div class="row" id="spcl">
+  <h2 class="text-center text-danger">Todays's special Breakfast</h2>
+   <ul class="list-group list-group-horizontal " style="justify-content: center;">
+    <li class="list-group-item text-center " style=" width: 150px; display: inline; padding: 20px;"><a href="{% url 'breakfast' %}" role="button" class="btn btn-outline-danger"><B>BREAKFAST</B></a></li>
+    <li class="list-group-item text-center " style=" width: 150px; display: inline; padding: 20px;"><a href="{% url 'curry' %}" role="button" class="btn btn-outline-success"><B>CURRY</B></a></li>
+        <li class="list-group-item text-center " style=" width: 150px; display: inline; padding: 20px;"><a href="{% url 'lunch' %}" role="button" class="btn btn-outline-dark"><B>LUNCH</B></a></li>
+      <li class="list-group-item text-center " style=" width: 150px; display: inline; padding: 20px;"><a href="{% url 'drinks' %}" role="button" class="btn btn-outline-secondary"><B>DRINKS</B></a></li>
+              <li class="list-group-item text-center " style=" width: 150px; display: inline; padding: 20px;"><a href="{% url 'snaks' %}" role="button" class="btn btn-outline-primary"><B>SNAKS</B></a></li>
+  </ul>
+  {% for v in break %}
+  
+  <!-- <div class="col-lg-12 col-md-6 col-sm-2"> -->
+    <div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{v.Image.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{v.Food}}</h5>
+        <p class="card-text">{{v.Details|truncatewords:"10"|linebreaks|safe}}<a href="{% url 'bookFood' v.id %}"> see more...</a></p>
+        <p class="card-text"><b>RS:₹{{v.Price}}</b></p>
+        <p class="card-text"><a href="{% url 'bookFood' v.id %}" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- </div> -->
+{% endfor %}
+</div>
+  </div>
+
+  <div class="container">
+    <div class="row bg-secondary" id="reserve"> 
+      <div class="col-lg col-md col-sm">
+      <h2><b><u>RESERVE A TABLE</u></b></h2>
+      <form method="POST" action="{% url 'reserveAction' %}">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <th>
+              Name:
+            </th>
+            <td><input type="text" name="name" class="form-control" value="{{request.session.Username}}" readonly id="Name"></td>
+          </tr>
+          <tr>
+            <th>Phone_Number:</th>
+            <td><input type="text" name="phone" class="form-control" id="Phone"></td>
+          </tr>
+          <tr>
+            <th>Peoples:</th>
+            
+             <td> <select class="form-select" name="people" id="People">
+                <option value="">--SELECT--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <!-- {% if value > 4 %}
+                <script>
+                  alert("Family option available")
+                </script>
+                {% endif %} -->
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                
+
+              </select></td>
+            
+          </tr>
+          <tr>
+            <th>Table:</th>
+            
+            <td><select class="form-select" name="tables" id="Table">
+                <option value="">--SELECT--</option>
+                {% for t in table %}
+                <option value="{{t.id}}">{{t.Name}}</option>
+
+                {% endfor %}
+                </select>
+            </td>
+            
+          </tr>
+          <tr>
+            <th>Date:</th>
+            <td><input type="date" name="date" class="form-control" id="Date"></td>
+          </tr>
+          <tr>
+            <th>Time</th>
+            <td><input type="time" name="time" class="form-control" id="Time"></td>
+          </tr>
+          <tr>
+            <td><input type="submit" value="RESERVE" class="btn btn-success" onclick="return validation()"></td>
+            <td><input type="reset" value="CLEAR" class="btn btn-danger"></td>
+          </tr>
+        </table>
+      </form>
+
+    </div>
+    <div class="col-lg col-md col-sm border bg-dark">
+      <h1 class="text-white">Events</h1>
+       <marquee direction='up' width='100%' height='80%' behavior="scroll" 
+           onmouseover="this.stop();"
+           onmouseout="this.start();">
+      {% for e in events %}
+     
+        <h3 class='text-danger'>Event_Name:{{e.Name}}</h3>
+        <h5 class='text-danger'>Event_Organizer:{{e.Organizer}}</h5>
+        <h5 class='text-danger'>Event_Date:{{e.Date}}</h5>
+        <hr class="bg-white">
+        {% endfor %}
+
+      </marquee>
+
+      
+    </div>
+    </div>
+  </div>
+<div class="carousel-item">
+  {% for s in staff %}
+  <img src="{{s.Image.url}}" alt="...">
+  <div class="carousel-caption d-none d-md-block">
+    <h5>{{s.Name}}</h5>
+    <p>...</p>
+  </div>
+  {% endfor %}
+</div>
+  <!-- user feedbacks  -->
+
+
+<!-- <div class="carousel-item">
+  {% for s in staff %}
+  <img src="{{s.Image.url}}" alt="...">
+  <div class="carousel-caption d-none d-md-block">
+    <h5>{{s.Name}}</h5>
+    <p>...</p>
+  </div>
+  {% endfor %}
+</div> -->
+
+
+
+  <!-- user feedback ends -->
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+{% endblock %}

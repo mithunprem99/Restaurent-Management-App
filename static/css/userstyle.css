@@ -1,0 +1,35 @@
+/*body {
+  margin: 0;
+}*/
+
+/** {
+  box-sizing: border-box;
+}*/ 
+.head{
+  position: absolute;
+  bottom: 358px;
+  left: 16px;
+  color: green;
+}
+
+.heading{
+  position: absolute;
+  bottom: 258px;
+  left: 16px;
+  color: red;
+}
+
+html,body{
+  margin: 0px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+@font-face {
+  font-family: "Sevillana-Regular";
+  src: url("/static/assets/font/Sevillana-Regular.ttf") format("truetype");
+}
+
+
+
+

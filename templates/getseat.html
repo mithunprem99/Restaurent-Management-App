@@ -1,0 +1,9 @@
+{%  for se in seats %}
+
+<select class="form-select" style="width: 10%;">
+	<!-- <option value="">--select--</option> -->
+	<option value="{{se.id}}">{{se.Chair}}</option>
+</select>
+<!-- <input type="text"  class="form-control" value="{{se.Chair}}"> -->
+
+{% endfor %}

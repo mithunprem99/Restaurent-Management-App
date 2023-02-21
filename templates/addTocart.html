@@ -1,0 +1,154 @@
+{% extends 'userbase.html' %}
+{% block title %} Add to cart {% endblock title %}
+{% block content %}
+
+<script type="text/javascript">
+	
+	function validation(){
+		var qua=document.getElementById('quantity')
+		// var table=document.getElementById('Table')
+		var people=document.getElementById('People')
+		var date=document.getElementById('Date')
+		var time=document.getElementById('Time')
+
+
+
+		if(qua.value.length==0){
+			alert("Select the quantity")
+			return false;
+		}
+
+		
+		else if(people.value.length==0){
+			alert("Select No.Of peoples")
+			return false;
+		}
+		else if(date.value.length==0){
+			alert("Choose a date")
+			return false;
+		}
+		else if(time.value.length==0){
+			alert("Choose Time")
+			return false;
+		}
+		else{
+			return true;
+		}
+
+	}
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+			var price=parseInt($("#price").val())
+			var qua=parseInt($("#quantity").val())
+			var charge=parseInt($("#charge").val())
+			var total=(price*qua)
+			// alert(charge)
+			$("#total_price").val(total)
+		$("#quantity").change(function(){
+			var price=parseInt($("#price").val())
+			var qua=parseInt($("#quantity").val())
+			
+			var total=(price*qua)
+			
+			$("#total_price").val(total)
+		})
+	})
+</script>
+<h2 class="text-center">Book Food And Table</h2>
+<div class="container">
+	<div class="row border">
+		<div class="col-lg col-md col-sm">
+		{% for v in views %}
+		<input type="hidden" name="id">
+		<form method="POST" action="{% url 'bookFoodAction' %}">
+			{% csrf_token %}
+			
+			<table id="myTable">
+				<tr>
+					<th>Name:</th>
+					<td><input type="text" name="name" 
+						value="{{request.session.Name}}" class="form-control" readonly></td>
+				</tr>
+				<tr>
+					<th>Item_Name:</th>
+					<td><input type="text" name="food" id="food" value="{{v.Food}}" class="form-control" readonly></td>
+					
+				</tr>
+				<tr>
+					
+						<th>Image</th>
+						<td><img src="{{v.Image.url}}" width="150px" height="150px"></td>
+					
+				</tr>
+				<tr>
+					<th>Price</th>
+					<td><input type="text" name="price" value="{{v.Price}}" class="form-control" id="price" readonly></td>
+					
+				</tr>
+				<tr>
+					<th>Quantity</th>
+					<td><input type="number" name="quantity" class="form-control" min="1" max="100" id="quantity" value="1"></td>
+					
+				</tr>
+				
+				
+           
+				<tr>
+					<th>Total_Price:</th>
+					<td><input type="text" name="total" class="form-control" id="total_price" placeholder="(price*qnty)+table charge" readonly> </td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="ADD TO CART" class="btn btn-success" onclick="return validation()">
+						<input type="reset" value="CLEAR" class="btn btn-danger"></td>
+				</tr>
+				<!-- {% for d in din %}
+				<input type="hidden" name="charge" value="{{d.Charge}}" class="form-control" id="charge">
+				{% endfor %} -->
+
+			</table>
+
+		</form>
+		{% endfor %}
+
+	</div>
+{% if feedback %}
+<div class="col-lg col-md col-sm" style=" border: 2px solid;">
+	<h5 class="text-success mt-2" ><b><u>Feedbacks</u></b> </h5>
+		
+		{% for v in feedback %}
+			<h6>{{v.User.Name}}</h6>
+			<p>{{v.Feedback}}</p>
+			<hr>
+		{% endfor %}
+
+	</div>
+	{% endif %} 
+	</div>
+ 
+</div>
+
+
+
+
+
+
+
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+
+
+
+
+
+
+{% endblock %}

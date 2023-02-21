@@ -1,0 +1,46 @@
+{% extends 'managerbase.html' %}
+{% block title %} Event edit {% endblock title %}
+
+{% block content %}
+
+<h2>View events</h2>
+<div class="container">
+
+<div class="row">
+	<table class="table table-bordered table-striped table-hover table-responsive">
+		
+
+		<tr>
+			<th>Event_Name</th>
+			<th>Organizer</th>
+			<th>Date</th>
+			<th>Details</th>
+			<th>Action</th>
+		</tr>
+		{% for v in views %}
+
+		<tr>
+			<td>{{v.Name}}</td>
+			<td>{{v.Organizer}}</td>
+			<td>{{v.Date}}</td>
+			<td>{{v.Details}}</td>
+			<td>
+				<a href="{% url 'updateEvent' v.id %}" class="btn btn-success">UPDATE</a>
+				<a href="{% url 'deleteEvent' v.id %}" class="btn btn-danger">DELETE</a>
+			</td>
+		</tr>
+
+		{% endfor %}
+
+
+	</table>
+</div>
+
+
+	</div>
+
+
+
+
+
+{% endblock content %}

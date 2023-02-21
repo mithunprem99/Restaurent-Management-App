@@ -1,0 +1,75 @@
+{% extends 'adminbase.html' %}
+{% block title %} Add staff details {% endblock title %}
+
+{% block content %}
+
+<h2>Staff Update</h2>
+{% for v in view %}
+<form method="POST" action="{% url 'staffupdateAction' %}" enctype="multipart/form-data">
+	{% csrf_token %}
+    <input type="hidden" name="id" value="{{v.id}}">
+	<table>
+                    <tr>
+                        <th>Name:</th>
+                        <td ><input type="text" name="name" class="form-control" value="{{v.Name}}"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><textarea class="form-control" name="address">{{v.Address}}</textarea></td>
+                    </tr>
+                    <tr>
+                        {%if v.Gender == 'male' %}
+                        <th>Gender:</th>
+                        <td><input type="radio" name="gender" class="form-check-input" value="male" checked='true'>Male
+                        <input type="radio" name="gender" class="form-check-input" value="female">Female</td>
+                        {% else  %}
+                        <th>Gender:</th>
+                        <td><input type="radio" name="gender" class="form-check-input" value="male">Male
+                        <input type="radio" name="gender" class="form-check-input" value="female" checked='true'>Female</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>
+                            DOB:
+                        </th>
+                        <td><input type="date" name="dob" class="form-control" value="{{v.DOB}}"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone:</th>
+                        <td><input type="text" name="phone" class="form-control" value="{{v.Phone}}"></td>
+                    </tr>
+                    <tr>
+                        <th>Profile_Image:</th>
+                        <td><img src="{{v.Image.url}}" height="100px" width="100px"><input type="file" name="file" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Email:
+                        </th>
+                        <td><input type="text" name="email" class="form-control" value="{{v.Email}}"></td>
+                    </tr>
+                    <tr>
+                        <th>Designation</th>
+                        <td><input type="text" name="desg" class="form-control" value="{{v.Designation}}"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td><input type="submit" value="Update" class="btn btn-primary"></td>
+                        <td><input type="reset" value="Clear" class="btn btn-warning"></td>
+                    </tr>
+                </table>
+	
+
+
+</form>
+{% endfor %}
+
+ {%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+{% endblock content %}

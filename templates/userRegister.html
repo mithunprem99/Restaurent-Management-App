@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register User</title>
+ 
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/images/Tavern_logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+  
+  function validation(){
+
+    var alpha=/^[a-z A-Z]+$/;
+    var num=/^[0-9]+$/;
+    var regex=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+
+    var name=document.getElementById('Name');
+    var address=document.getElementById('Address')
+    var gender=document.myform.Gender;
+    var dob=document.getElementById('DOB')
+    
+    var phone=document.getElementById('Phone');
+    var file=document.getElementById('file');
+    var email=document.getElementById('Email');
+    var username=document.getElementById('Username');
+    var password=document.getElementById('Password');
+    // var time=document.getElementById('Time');
+
+    if(name.value.length==0){
+      alert('Enter your name');
+      return false;
+
+    }
+    else if(!name.value.match(alpha))
+        {
+            alert("Enter a valid name")
+            Name.focus();
+            return false;
+        }
+     else if(Address.value.length==0){
+            alert("Enter address");
+            return false;
+        }
+    else if(Gender[0].checked==false && Gender[1].checked==false)
+    {
+        alert('enter a valid gender');
+        return false;
+    }
+         else if(dob.value.length==0){
+            alert("Enter dob");
+            return false;
+        }
+             else if(phone.value.length==0){
+      alert('Enter your phone number')
+      return false;
+    }
+    else if(!Phone.value.match(num)){
+            alert("enter a valid number");
+            Phone.focus();
+            return false;
+        }
+    
+    else if(file.value.length==0){
+            alert("Enter a file");
+            return false;
+        }
+   
+    else if(email.value.length==0){
+      alert('Enter the email')
+      return false;
+    }
+    else if(!email.value.match(regex)){
+        alert("Enter a valid email");
+        email.focus()
+        return false;
+
+    }
+    else if(username.value.length==0){
+      alert('Enter username')
+      return false;
+    }
+    else if(password.value.length==0){
+      alert('Enter password')
+      return false;
+    }
+     
+    else{
+            return true;
+        }
+  }
+
+
+
+
+</script>
+<script  src="/static/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+     $("document").ready(function(){
+        $("#Username").change(function(){
+            var regname=$("#Username").val();
+            $.ajax({
+                url:"{% url 'checkUserName' %}",
+                data:{'uname':regname},
+                success:function(data){
+                    $("#Username").html(data)
+                    if(data.valid=="exist"){
+                        alert("User already exist")
+                        $("#Username").val()
+                    }
+                }
+            })
+         })
+     })
+
+</script>
+</head>
+<body>
+  	<div class="navbar navbar-expand -lg navbar-dark shadow-5-strong bg-info" style="background-color:transparent">
+  		<div class="container col-lg-12 col-md-4 col-sm=-3">
+  		<a href="#" class="navbar-brand"><img src="/static/images/Tavern_logo.jpg" width="10%" height="10%"></a>
+  		<ul class="navbar-nav">
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="{% url 'login' %}">HOME</a>
+  			</li>
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="#">MENU'S</a>
+  			</li>
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="#">ABOUT</a>
+  			</li>
+  			
+  			<li class="nav-item">
+  				<a class="nav-link text-primary" href="#">CONTACT</a>
+  			</li>
+  		
+  		</ul>
+  	</div>
+  	</div>
+<!-- form starts here -->
+    
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 border mt-2">
+            <h2 class="text-warning mt-2">Register</h2>
+            <form method="POST" action="{% url 'userRegisterAction' %}" enctype="multipart/form-data" name="myform">
+                {% csrf_token %}
+
+                <table>
+                    <tr>
+                        <th>Name:</th>
+                        <td ><input type="text" name="name" class="form-control" id="Name"></td>
+                    </tr>
+                    <tr>
+                        <th>Address:</th>
+                        <td><textarea class="form-control" name="address" id="Address"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Gender:</th>
+                        <td><input type="radio" name="gender" class="form-check-input" value="male" id="Gender">Male
+                        <input type="radio" name="gender" class="form-check-input" value="female" id="Gender">Female</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            DOB:
+                        </th>
+                        <td><input type="date" name="dob" class="form-control" id="DOB"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone:</th>
+                        <td><input type="text" name="phone" class="form-control" id="Phone"></td>
+                    </tr>
+                    <tr>
+                        <th>Profile_Image:</th>
+                        <td><input type="file" name="file" class="form-control" id="file"></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Email:
+                        </th>
+                        <td><input type="text" name="email" class="form-control" id="Email"></td>
+                    </tr>
+                    <tr>
+                        <th>Username:</th>
+                        <td><input type="text" name="username" class="form-control" id="Username"></td>
+                    </tr>
+                    <tr>
+                        <th>Password:</th>
+                        <td><input type="password" name="password" class="form-control" id="Password"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Register" class="btn btn-primary" onclick="return validation()"></td>
+                        <td><input type="reset" value="Clear" class="btn btn-warning"></td>
+                    </tr>
+                </table>
+
+
+
+
+            </form>
+        </div>
+
+
+</div>
+</div>
+
+
+
+<!-- form end here -->
+
+
+
+<div class="container">
+
+ </div>
+<div class="footer  text-center foot mt-5">
+  <div class="container">
+  <div class="row ">
+    <div class="col-lg-4">
+      <h2 class="text"><u>Company</u></h2>
+      <ul type="arrow" class="circle text-primary">
+        <li>About</li>
+        <li>Contact Us</li>
+        <li>Privacy&Policy</li>
+        <li>Terms&Conditions</li>
+      </ul>
+    </div>
+ <div class="col-lg-4">
+     <h2 class="text"><u>Contact</u></h2>
+     <pre class="circle text-primary">
+<b>123 Street,Kannur,kerala
+ph:123456789
+tavern@gmail.com
+      </b>
+    </pre>
+</div>
+<div class="col-lg-4">
+  <h2 class="text"><u>Opening</u></h2>
+  <pre class="circle text-primary ">
+  <h4 >Monday-Saturday</h4>
+  09AM-09PM
+</pre>
+     </div>
+    </div>
+        &copy;copyright @ TavernRestaurant
+        <br>All right reserved
+    
+  </div>
+</div>
+</div>
+</div>
+  </body>
+ 
+</html>

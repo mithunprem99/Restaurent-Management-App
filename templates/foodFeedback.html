@@ -1,0 +1,54 @@
+{% extends 'userbase.html' %}
+{% block title %} User FeedBack {% endblock title %}
+{% block content %}
+
+<div class="container mb-2">
+
+<h2>Feed Back Form</h2>
+	<div class="row border mb-5">
+		{% for v in views %}
+		<form method="POST" action="{% url 'feedbackAction' %}">
+			{% csrf_token %}
+		<table>
+			<tr>
+				<th>UserName</th>
+				<td><input type="text" name="name" class="form-control" value="{{v.User.Username}}" readonly> </td>
+			</tr>
+			<tr>
+				<th>Food</th>
+				<td><input type="text" name="food" class="form-control" value="{{v.Food.Food}}" readonly></td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td><input type="text" name="date" class="form-control" value="{{v.Date}}" readonly></td>
+				<tr>
+					<th>Time</th>
+					<td><input type="text" name="time" class="form-control" value="{{v.Time}}" readonly></td>
+
+				</tr>
+				<tr>
+					<th>FeedBack</th>
+					<td><textarea name="feedback" class="form-control"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="SUBMIT" class="btn btn-primary">
+						<input type="reset" name="CLEAR" class="btn btn-danger"></td>
+				</tr>
+			</tr>
+		</table>
+	</form>
+	{% endfor %}
+	</div>
+
+
+</div>
+
+
+{%if messages %}
+{%for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'adminbase.html' %}
+{% block title %} Feedbacks {% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+
+<div class="row">
+
+<h2>My FeedBacks</h2>
+
+<table class="table table-bordered table-striped table-hover table-responsive">
+	
+	<tr>
+		<th>Name</th>
+		<th>Food</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Feedback</th>
+	</tr>
+	{% for v in views %}
+
+	<tr>
+		<td>{{v.User.Name}}</td>
+		<td>{{v.Food.Food}}</td>
+		<td>{{v.Date}}</td>
+		<td>{{v.Time}}</td>
+		<td>{{v.Feedback}}</td>
+	</tr>
+	{% endfor %}
+
+</table>
+</div>
+</div>
+
+
+
+{% endblock content %}

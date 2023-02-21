@@ -1,0 +1,176 @@
+{% extends 'userbase.html' %}
+
+{% block title %}View order {% endblock title %}
+{% block content %}
+<script type="text/javascript">
+	
+		function validation() {
+			
+				
+				var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
+			// var num=/^[0-9]+$/;
+			var name=document.getElementById('name')
+			var number=document.getElementById('number')
+			var exp=document.getElementById('Date')
+			var cvc=document.getElementById('cvc')
+
+			if(name.value.length ==0){
+				alert("Enter card holder name");
+				return false;
+			}
+			else if(number.value.length==0){
+				alert(number.value)
+				alert("Enter card Number");
+				return false;
+
+
+				
+			}
+			else if(!number.value.match(cardno)){
+					alert("Enter valid number");
+					return false;
+				}
+			else if(exp.value.length==0){
+					alert("Enter Month");
+					return false;
+
+				
+			}
+			else if(cvc.value.length==0){
+				alert("Enter Cvc Number");
+				return false;
+			}
+
+			else{
+				return true;
+			}
+
+
+		}
+</script>
+
+<div class="container">
+
+
+<div class="row">
+	<h3 class="text-center text-danger">Detailed view</h3>
+	<form method="POST" action="{% url 'payNow' %}">
+		{% csrf_token %}
+	<table class="table table-striped table-hover table-responsive"> 
+		<tr>
+			<th>Table</th>
+			<th>Chair Extra</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Food</th>
+				
+				<th>Quantity</th>
+
+				
+				<!-- <th>Total_Price</th> -->
+				<th>Payment_Status</th>
+				<th>Action</th>
+				<th></th>
+		</tr>
+		{% for v in view %}
+
+		<tr>
+			<td>{{v.Table.Name}}</td>
+			<td>{{v.Extra}}</td>
+			<td>{{v.Date}}</td>
+			<td>{{v.Time}}</td>
+			<td><img src="{{v.Food.Image.url}}" width="200px" height="200px"></td>
+			<td>{{v.Quantity}}</td>
+			
+			<td>{{v.Payment_Status}}</td>
+			<td></td>
+			{% if v.Status == 'Order Confirmed' and v.Payment_Status == 'Payment SuccessFull' %}
+				<td><a href="{% url 'addFeedback' v.id %}" class="btn btn-success">Feedback</a>
+					<a href="{% url 'complaints' v.id %}" class="btn btn-danger">Complaints</a></td>
+
+
+				{% endif %}
+
+		</tr>
+		<tr>
+			<!-- <td>
+				<input type="text" name="total_amnt" id="total">
+			</td> -->
+		</tr>
+
+	
+		{% endfor %}
+
+
+	</table>
+	<!-- <input type="submit" value="PAY" class="btn btn-success"> -->
+</form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style=" width: 25%;">PAY
+		</button>
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">PAYMENT</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	
+       <form method="POST" action="{% url 'payNowAction' %}">
+       	{% csrf_token %}
+       	
+          <div class="mb-3">
+            <label for="name" class="col-form-label">CARD_HOLDER NAME
+            </label>
+            <input type="text" class="form-control" name="name" id="name">
+          </div>
+          <div class="mb-3">
+            <label for="number"  class="col-form-label">CARD_NUMBER
+            </label>
+            <input type="text" class="form-control" name="number" id="number">
+          </div>
+          {% for v in pay %}
+          <div class="mb-3">
+            <label for="amount" class="col-form-label">AMOUNT
+            </label>
+            <input type="text" name="amount" class="form-control" id="amount" value="₹{{v.Total_Price}}"  readonly>
+          </div>
+           <div class="mb-3">
+            <label for="exp" class="col-form-label">EXP_DATE
+            </label>
+            <input type="month" name="exp" class="form-control" min="2019-01" id="Date">
+          </div>
+          <div class="mb-3">
+            <label for="cvc" class="col-form-label">CVC
+            </label>
+            <input type="text" name="cv" class="form-control" id="cvc">
+          </div>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+       	<input type="hidden" name="id" value="{{v.id}}">
+        <input type="submit" class="btn btn-primary" value="PAY" onclick="return validation()">
+        {% endfor %}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</div>
+
+
+{%if messages %}
+{%for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

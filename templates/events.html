@@ -1,0 +1,81 @@
+{% extends 'managerbase.html' %}
+{% block title %}Events Add {% endblock title %}
+
+{% block content %}
+<script>
+	function validation(){
+		var name=document.getElementById('Name')
+		var org=document.getElementById('Org')
+		var date=document.getElementById("Date")
+		var desc=document.getElementById('Desc')
+
+
+		if (name.value.length==0){
+			alert("Enter event name")
+			return false;
+		}
+		else if(org.value.length==0){
+			alert("Enter Organizers")
+			return false;
+		}
+		else if(date.value.length==0){
+			alert("Enter a date")
+			return false;
+		}
+		else if(desc.value.length==0){
+			alert("Enter Description")
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+</script>
+
+<div class="container">
+	<div class="row border">
+		<div class="col-lg-6 col-md-4 col-sm-2">
+<h2>Events</h2>
+<form method="POST" action="{% url 'addEventsAction' %}">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<th>Event_Name:</th>
+			<td><input type="text" name="name" class="form-control" id="Name"></td>
+		</tr>
+		<tr>
+			<th>Organizer:</th>
+			<td><input type="text" name="org" class="form-control" id="Org"></td>
+		</tr>
+		<tr>
+			<th>Date:</th>
+			<td><input type="date" name="date" class="form-control" id="Date"></td>
+		</tr>
+		<tr>
+			<th>
+				Event_Description:
+			</th>
+			<td><textarea class="form-control" name="details" id="Desc"></textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="ADD" class="btn btn-success w-100" onclick="return validation()"></td>
+		</tr>
+	</table>
+
+
+
+
+</form>
+</div>
+	</div>
+</div>
+
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+{% endblock content %}

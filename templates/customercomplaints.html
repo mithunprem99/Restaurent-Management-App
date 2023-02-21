@@ -1,0 +1,86 @@
+{% extends 'adminbase.html' %}
+{% block title %} Admin Home {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="row">
+
+<h2>My Complaints</h2>
+
+<table class="table table-bordered table-striped table-hover table-responsive">
+	
+	<tr>
+		<th>Name</th>
+		<th>Food</th>
+		<th>Date</th>
+		<th>Time</th>
+		<th>Complaints</th>
+		<th>Forward</th>
+		<th>Replay</th>
+	</tr>
+	{% for v in views %}
+
+	<tr>
+
+		<td>{{v.User.Name}}</td>
+		<td>{{v.Food.Food}}</td>
+		<td>{{v.Date}}</td>
+		<td>{{v.Time}}</td>
+		<td>{{v.Complaints}}</td>
+		<input type="hidden" name='id' value="{{v.id}}">
+		<td><a href="{% url 'msgforward' v.id %}" class="btn btn-dark"><i class="fa fa-paper-plane" aria-hidden="true"></i></a></td>
+		<!-- <td><a href="#" class="btn btn-info"><i class="fa fa-repeat" aria-hidden="true"></i></a></td> -->
+		<td><a href="{% url 'replayComplaints' v.id %}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa fa-repeat" aria-hidden="true"></i></a></td>
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'replayComplaintsAction' %}">
+        	{% csrf_token %}
+        	<input type="hidden" name='id' value="{{v.id}}">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name" value="{{v.User.Name}}">
+            <input type="hidden" class="form-control" id="recipient-name" value="{{v.User.id}}" name="userid">
+
+          </div> 
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text" name="message"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Send message</button> -->
+        <input type="submit" class="btn btn-primary" value="SEND">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+	</tr>
+	{% endfor %}
+
+</table>
+
+
+</div>
+</div>
+
+ {%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+
+{% endblock content %}

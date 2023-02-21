@@ -1,0 +1,41 @@
+{% extends 'adminbase.html' %}
+{% block title %} Manager view {% endblock title %}
+
+{% block content %}
+
+<h2>View Registered Managers</h2>
+
+<table class="table table-bordered table-striped table-hover table-responsive">
+	<tr>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Gender</th>
+		<th>DOB</th>
+		<th>Phone</th>
+		<th>Email</th>
+		<th>Username</th>
+		<th>Photo</th>
+		<th>Action</th>
+
+	</tr>
+	{% for v in view %}
+
+	<tr>
+		<td>{{v.Name}}</td>
+		<td>{{v.Address}}</td>
+		<td>{{v.Gender}}</td>
+		<td>{{v.DOB}}</td>
+		<td>{{v.Phone}}</td>
+		<td>{{v.Email}}</td>
+		<td>{{v.Username}}</td>
+		<td><img src="{{v.Image.url}}" height="100px"></td>
+		<td><a href="{% url 'editManager' v.id %}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+			<a class="btn btn-danger" href="{% url 'deleteManager' v.id %}" ><i class="fa fa-trash" aria-hidden="true"></i>
+			</a>
+		</td>
+	</tr>
+	{%  endfor %}
+</table>
+
+
+{% endblock content %}

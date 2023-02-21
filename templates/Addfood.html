@@ -1,0 +1,102 @@
+{% extends 'managerbase.html' %}
+{% block title %} Manager Home {% endblock title %}
+
+{% block content %}
+<script>
+	
+	function validation(){
+
+		var name=document.getElementById("Food")
+		var file=document.getElementById("file")
+		var price=document.getElementById("Price")
+		var details=document.getElementById("Details")
+
+
+		if(name.value.length==0){
+			alert("Enter the item");
+			return false;
+		}
+		else if(file.value.length==0){
+			alert('Choose an Image');
+			return false;
+		}
+		else if(price.value.length==0){
+			alert("Enter the amount ");
+			return false;
+		}
+		else if(details.value.length==0){
+			alert("Enter the item details");
+			return false;
+		}
+		else{
+			return true;
+		}
+
+
+	}
+
+
+</script>
+	<div class="container">
+
+		<div class="row border p-5">
+			<div class="col-lg-6 col-md-4 col-sm-2">
+
+			<h2>Todays Special</h2>
+	<form method="POST" action="{% url 'addFoodAction' %}" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			<tr>
+				<th>Food:</th>
+				<td><input type="text" name="food" class="form-control" id="Food"></td>
+			</tr>
+			<tr>
+				<th>Image:</th>
+				<td><input type="file" name="file" class="form-control" id="file"></td>
+			</tr>
+			<tr>
+				<th>Price:</th>
+				<td><input type="text" name="price" class="form-control" id="Price"></td>
+			</tr>
+			<tr>
+				<th>Details:</th>
+				<td><textarea class="form-control" name="details" id="Details"></textarea></td>
+			</tr>
+			<tr>
+				<th>Category</th>
+				<td><input type="text" name="cat" class="form-control"></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="ADD" class="btn btn-success" onclick="return validation()"></td>
+				<td><input type="reset" value="Clear" class="btn btn-warning"></td>
+			</tr>
+
+
+
+
+
+
+
+		</table>
+
+
+
+
+
+	</form>
+</div>
+		</div>
+
+	</div>
+
+
+ {%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+
+{% endblock content %}

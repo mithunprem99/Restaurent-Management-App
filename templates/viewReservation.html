@@ -1,0 +1,47 @@
+{% extends 'adminbase.html' %}
+{% block title %} Admin Home {% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+<h2 class="text-warning">Reservations</h2>
+	<div class="row">
+		<form method="POST" action="{% url 'adminsearchReservationBydate' %}">
+		{% csrf_token %}
+		Search by date<input type="date" name="date" class="form-control" >
+		<input type="submit" value="Search" class="btn btn-primary">
+		<table class="table table-bordered table-striped table-hover table-responsive">
+			
+			<tr>
+				<th>User_Name</th>
+				<th>Table</th>
+				<th>Food</th>
+				<th>Peoples</th>
+				<th>Date</th>
+				<th>Time</th>
+				<!-- <th>Status</th> -->
+
+			</tr>
+			{% for v in views %}
+
+			<tr>
+				<td>{{v.User.Name}}</td>
+				<td>{{v.Table.Name}}</td>
+				<td>{{v.Food.Food}}</td>
+				<td>{{v.Peoples}}</td>
+				<td>{{v.Date}}</td>
+				<td>{{v.Time}}</td>
+				<!-- <td>{{v.Status}}</td> -->
+			</tr>
+			{% endfor %}
+
+		</table>
+</form>
+	</div>
+
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'userbase.html' %}
+{% block title %} View My reservations {% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+<h2 class="text-warning">Reservations</h2>
+	<div class="row">
+
+		<table class="table table-bordered table-striped table-hover table-responsive">
+			
+			<tr>
+				<th>User_Name</th>
+				<th>Table</th>
+				<th>Food</th>
+				<th>Peoples</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Action</th>
+
+			</tr>
+			{% for v in views %}
+
+			<tr>
+				<td>{{v.User.Name}}</td>
+				<td>{{v.Table.Name}}</td>
+				<td>{{v.Food.Food}}</td>
+				<td>{{v.Peoples}}</td>
+				<td>{{v.Date}}</td>
+				<td>{{v.Time}}</td>
+				<td><a href="{% url 'cancelReserv' v.id v.Table_id %}" class="btn btn-danger"> CANCEL</td>
+			</tr>
+			{% endfor %}
+
+		</table>
+
+	</div>
+
+</div>
+
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+{% endblock content %}

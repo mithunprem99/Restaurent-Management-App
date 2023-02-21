@@ -1,0 +1,74 @@
+{% extends 'managerbase.html' %}
+{% block title %} Add Stock {% endblock title %}
+
+{% block content %}
+
+<script>
+	
+	function validation(){
+		var name=document.getElementById("Name")
+		var quan=document.getElementById("Qua")
+
+		if (name.value.length==0){
+			alert("Enter Stock")
+			return false;
+		}
+		else if(quan.value.length==0){
+			alert("Enter Quantity")
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+</script>
+
+<h2>Stock Add</h2>
+<div class="container">
+
+	<div class="row border">
+		<div class="col-lg-6 col-md-4 col-sm-2">
+		<form method="POST" action="{% url 'addStockAction' %}">
+			{% csrf_token %}
+			<table>
+				<tr>
+					<th>Name</th>
+					<td><input type="text" name="name" class="form-control" id="Name"></td>
+				</tr>
+				<tr>
+					<th>Quantity(KG)</th>
+					<td><input type="number" name="quantity" class="form-control" id="Qua"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="ADD" class="btn btn-success" onclick="return validation()"></td>
+					<td><input type="reset" value="CLEAR" class="btn btn-danger"></td>
+
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="col-lg-6 col-md-4 col-sm-2 ">
+		<table class="table table-bordered table-striped table-hover table-responsive">
+			<tr>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Action</th>
+			</tr>
+			{% for v in views %}
+
+			<tr>
+				<td>{{v.Item}}</td>
+				<td>{{v.Quantity}}</td>
+				<td><a href="{% url 'Stockupdate' v.id %}" class="btn btn-primary">UPDATE
+					<a href="{% url 'deleteStock' v.id %}" class="btn btn-danger">DELETE</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+</div>
+
+		
+</div>
+
+{% endblock content %}

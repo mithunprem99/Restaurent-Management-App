@@ -1,0 +1,41 @@
+{% extends 'managerbase.html' %}
+{% block title %} Message By Admin {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+	<div class="row">
+		<h3>Complaints</h3>
+
+		<table class="table table-bordered table-striped table-hover table-responsive">
+			
+			<tr>
+				<th>Food</th>
+				<th>Complaint</th>
+
+			</tr>
+			{% for fu in comp %}
+			<tr>
+				
+				
+
+				<td>{{fu.Food.Food}}</td>
+				<td>{{fu.Complaints}}</td>
+
+
+				
+			</tr>
+			{% endfor %}
+
+
+		</table>
+
+	</div>
+
+</div>
+
+
+
+
+{% endblock content %}

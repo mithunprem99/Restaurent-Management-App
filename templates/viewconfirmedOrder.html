@@ -1,0 +1,56 @@
+{% extends 'managerbase.html' %}
+{% block title %} Manager Home {% endblock title %}
+
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            <table class="table table-bordered table-striped table-hover table-responsive">
+                <tr>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Payment_Status</th>
+                    <th>Quantity</th>
+                    <th>Special request</th>
+                    <th>Food</th>
+                    <th>Table</th>
+                    <th>Extra chair</th>
+                    <th>Order Confirmed</th>
+
+
+                </tr>
+                {% for v in view %}
+                <tr>
+                    
+                    <td>{{v.User.Name}}</td>
+                    <td>{{v.Date}}</td>
+                    <td>{{v.Time}}</td>
+                    <td>{{v.Payment_Status}}</td>
+                    <td>{{v.Quantity}}</td>
+                    <td>{{v.Special_Request}}</td>
+                    <td>{{v.Food.Food}}</td>
+                    <td>{{v.Table.Name}}</td>
+                    <td>{{v.Extra}}</td>
+                    {% if v.Status == 'Order Confirmed' %}
+                    <td><button class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i></button></td>
+                    {% elif v.Status == 'pending' %}
+                    <td><button class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></button></td>
+                    {% endif %}
+
+                    
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}

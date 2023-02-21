@@ -1,0 +1,43 @@
+{% extends 'managerbase.html' %}
+{% block title %} Update Stock {% endblock title %}
+
+{% block content %}
+
+
+
+<h2>Stock Update</h2>
+<div class="container">
+
+	<div class="row border">
+		<div class="col-lg-6 col-md-4 col-sm-2">
+		<form method="POST" action="{% url 'StockupdateAction' %}">
+			{% for v in views %}
+			{% csrf_token %}
+			<input type="hidden" name="id" value="{{v.id}}">
+			<table>
+				<tr>
+					<th>Name</th>
+					<td><input type="text" name="name" class="form-control" value="{{v.Item}}"></td>
+				</tr>
+				<tr>
+					<th>Quantity(KG)</th>
+					<td><input type="number" name="quantity" class="form-control" value="{{v.Quantity}}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="UPDATE" class="btn btn-success"></td>
+					<td><input type="reset" value="CLEAR" class="btn btn-danger"></td>
+
+				</tr>
+			</table>
+			{% endfor %}
+		</form>
+	</div>
+	
+
+</div>
+
+
+		
+</div>
+
+{% endblock content %}

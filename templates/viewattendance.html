@@ -1,0 +1,75 @@
+{% extends 'managerbase.html' %}
+{% block title %}Attendance{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="row">
+	
+	<div class="col-lg-12 col-mg-12 col-sm-12">
+		<form method="POST" action="{% url 'searchBydate' %}">
+		{% csrf_token %}
+		Search by date<input type="date" name="date" class="form-control" >
+		<input type="submit" value="Search" class="btn btn-primary">
+	</div>
+
+	<div class="col-lg col-mg col-sm">
+	<h2 class="text-center">PRESENT</h2>
+	<table class="table table-bordered table-striped table-hover table-responsive">
+
+		<tr>
+			<th>
+				Staff_Name
+			</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Status</th>
+		</tr>
+		{% for  v in views %}
+		<tr>
+			<td>{{v.Staff.Name}}</td>
+			<td>{{v.Attendance.Date}}</td>
+			<td>{{v.Attendance.time}}</td>
+			<td>{{v.Status}}</td>
+		</tr>
+		{% endfor %}
+	 </table>
+	 </div>
+	 <div class="col-lg col-mg col-sm mt-6">
+				 <h3 class="text-center">ABSENT</h3>
+
+	 			<table class="table table-bordered table-striped table-hover table-responsive">
+
+		<tr>
+			<th>
+				Staff_Name
+			</th>
+			<th>Date</th>
+			<th>Time</th>
+			<th>Status</th>
+		</tr>
+		{% for  v in absent %}
+		<tr>
+			<td>{{v.Staff.Name}}</td>
+			<td>{{v.Attendance.Date}}</td>
+			<td>{{v.Attendance.time}}</td>
+			<td>{{v.Status}}</td>
+		</tr>
+		{% endfor %}
+	 </table>
+
+		</div>
+	 </form>
+
+
+		
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock content %}

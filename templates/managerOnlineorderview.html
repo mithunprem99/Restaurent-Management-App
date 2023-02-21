@@ -1,0 +1,98 @@
+{% extends 'managerbase.html' %}
+{% block title %} Todays Order {% endblock title %}
+
+{% block content %}
+
+
+<h2 class="text-warning">Todays Delivery</h2>
+<div class="container">
+	<div class="row">
+	
+
+		<table class="table table-bordered table-striped table-hover table-responsive">
+			<tr>
+				<th>Order_id</th>
+				<th>User</th>
+				<!-- <th>Food</th> -->
+				<!-- <th>Table</th> -->
+				<!-- <th>Quantity</th> -->
+				<th>Payment_status</th>
+				<th>Time</th>
+				<th>Date</th>
+				<th>Action</th>
+                <th>Track</th>
+			</tr>
+			{% for v in views %}
+			<tr>
+				<td>{{v.id}}</td>
+				<td>{{v.User.Name}}</td>
+				<!-- <td>{{v.Food.Food}}</td> -->
+				<!-- <td>{{v.Table.Name}}</td> -->
+				<!-- <td>{{v.Quantity}}</td> -->
+				<td>{{v.Payment_Status}}</td>
+				<td>{{v.Time}}</td>
+				<td>{{v.Date}}</td>
+				{% if v.Status == 'pending' %}
+				<td><a href="{% url 'confirmOrder' v.id %}" class="btn btn-success">CONFIRM</td>
+					{% else %}
+					<td>Order Confirmed</td>
+					{% endif %}
+                <td><!-- Button trigger modal -->
+                    <a href="{% url 'addtracking' v.id %}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </a>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tracking Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form method="POST" action="{% url 'addtrackingAction' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name='id' value="{{v.id}}">
+                              <div class="mb-3">
+                                <!-- <label for="recipient-name" class="col-form-label">Recipient:</label> -->
+                                <input type="hidden" class="form-control" id="recipient-name" value="{{v.User.Name}}">
+                                <input type="hidden" class="form-control" id="recipient-name" value="{{v.User.id}}" name="userid">
+                    
+                              </div> 
+                              <div class="mb-3">
+                                <!-- <label for="message-text" class="col-form-label">Message:</label> -->
+                                <input type='text' class="form-control" id="tracking" name="tracking" placeholder="Enter ID">
+                              </div>
+                            
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary">Send message</button> -->
+                            <input type="submit" class="btn btn-primary" value="SEND">
+                            </form>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div></td>
+                    
+			</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+
+
+</div>
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+
+
+{% endblock content %}

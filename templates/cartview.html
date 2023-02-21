@@ -1,0 +1,474 @@
+{% extends 'userbase.html' %}
+{% block title %} My cart {% endblock title %}
+{% block content %}
+
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		$("#quantity").change(function(){
+			var price=parseInt($("#Price").val())
+			var qua=parseInt($("#quantity").val())
+			var total=price*qua
+			// alert(price)
+			$("#totalprice").val(total)
+		})
+	})
+</script> -->
+<script>
+
+	$(document).ready(function () {
+    $( "#place_order" ).click(function(e) {
+    	e.preventDefault();
+    	var table=$("#table").val();
+    	// alert(table)
+    	var time=$("#time").val();
+    	var date=$("#date").val();
+    	 $.ajax({
+                url:"{% url 'getorder' %}",
+                // headers: {'X-CSRFToken': csrf_token},
+                type:"GET",
+
+                // dataType: 'application/json',
+                data:{'table':table,'time':time,'date':date},
+
+                success: function(data) {
+                	
+                	if(data.name == "Failed"){
+                		alert("Please select another time slot, date or Table.")
+                	}
+                	if(data.name == "Success"){
+                		$( "#order_form" ).submit();
+                	}
+
+                   
+                }
+        });
+    	 // return false;
+
+        // 
+    });
+});
+	
+</script>
+<script type="text/javascript">
+	function incrementValue(a)
+{
+    var value = parseInt(document.getElementById('number'+a).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value++;
+    document.getElementById('number'+a).value = value;
+    var price=parseInt($("#price"+a).text())
+    // alert(price)
+			var qua=parseInt($("#number"+a).val())
+			// var charge=parseInt($("#charge").val())
+			var total=(price*qua)
+			// alert(charge)
+			$("#total_price"+a).val(total)
+			calculate()
+			// quantity()
+}
+
+	function decrementValue(a)
+{
+	var value=0;
+    var value = parseInt(document.getElementById('number'+a).value, 10);
+    value = isNaN(value) ? 0 : value;
+    value--;
+    // this.counter =-1
+    if (value < 1){
+    	// decrementValue("pointer-events",'none');
+    	value = 1;
+    }
+    document.getElementById('number'+a).value = value;
+        var price=parseInt($("#price"+a).text())
+			var qua=parseInt($("#number"+a).val())
+		
+			var total=(price*qua)
+			
+			$("#total_price"+a).val(total)
+			calculate()
+			// quantity()
+}
+</script>
+<script>
+	function calculate(){
+		var totalPrice = 0;
+			$(".check").each(function(){
+
+      			if ($(this).prop("checked")) {
+      				// alert($(this).val())
+      				var value=$(this).val();
+      				// alert(value)
+      				 totalPrice = totalPrice +  parseInt($("#total_price"+value).val());
+      				// alert(totalPrice +parseInt($("#total_price"+value).val()));
+      				// alert(totalPrice)
+        			// totalPrice += Number($(this).find("span").data("price"));
+      			}
+    			// $(".price_display").text(totalPrice);
+    		});
+    			$("#totalprice").val(totalPrice);
+	}
+</script>
+
+<!-- <script>
+	function calculate(){
+		var totalPrice = 0;
+			$(".check").each(function(){
+
+      			if ($(this).prop("checked")) {
+      				// alert($(this).val())
+      				var value=$(this).val();
+      				// alert(value)
+      				 totalPrice = totalPrice +  parseInt($("#total_price"+value).val());
+      				// alert(totalPrice +parseInt($("#total_price"+value).val()));
+      				// alert(totalPrice)
+        			// totalPrice += Number($(this).find("span").data("price"));
+      			}
+    			// $(".price_display").text(totalPrice);
+    		});
+    			$("#totalamount").val(totalPrice);
+	}
+</script> -->
+<!-- <script>
+	function quantity(){
+		var qtity
+		$(".check").each(function(){
+			if ($(this).prop("checked")) {
+				var qua=$(this).val();
+				// alert(qua)
+				 qtity=parseInt($("#number").text());
+				 alert(qtity)
+			}
+
+	});
+	$("#qnt").val(qtity);
+	
+}
+
+</script> -->
+
+
+<script>
+	$(document).ready(function(){
+		// var a 
+		// incrementValue(a)
+		$(".check").change(function(){
+			// alert("hai");
+			
+    			calculate();
+				// quantity();
+
+		});
+
+	});
+</script>
+<!-- <script>
+	window.onload = function(){
+    document.getElementById('#del').onclick = function(){
+        document.getElementById('#qnt').value = document.getElementById('#number').value;   
+    }
+}; 
+</script> -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#table").change(function(){
+			var din=$("#table").val()
+			$.ajax({
+				url:"{% url 'getdinningImage' %}",
+				data:{'image': din},
+
+				success:function(data){
+					console.log(data)
+					$("#file").html(data)
+				}
+			})
+		})
+	})
+
+</script>
+
+<script type="text/javascript">
+	
+	function validation(){
+		var table=document.getElementById('table');
+		var date=document.getElementById('date');
+		var time=document.getElementById('time');
+
+
+		if(table.value.length==0){
+			 alert("Choose a table")
+           
+            return false;
+		}
+		else if(date.value.length==0){
+			alert("Choose a date");
+			return false;
+		}
+		else if(time.value.length==0){
+			alert("Choose time");
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
+
+</script>
+
+<script>
+	function validate(){
+
+		let flag = false;
+
+			$(".check").each(function(){
+
+				if ($(this).prop("checked")) {
+					flag = true;
+				}
+			});
+
+			if(flag==false){
+				alert('Select Item');
+				return false;
+			}  
+
+		var time=document.getElementById('time');
+		if(time.value.length==0){
+			alert("Choose time");
+			return false;
+		}
+		
+		$('#exampleModal').modal('show');
+	
+
+	}
+</script>
+<!-- <script>
+	function vali(){
+		
+	}
+</script> -->
+<script>
+	$(document).ready(function(){
+		$("#click").on('click',function(a){
+			var address = document.getElementById('address');
+					if(address.value.length==0){
+					alert("Enter delivery Address");
+					return false;
+					}
+
+			$.ajax({
+				type: "POST",
+				url: "{% url 'delivery' %}",
+				data:$('#order_form').serialize(),
+				success : function(response){
+					
+					
+						alert('order placed');
+					
+					// alert('order placed');
+					
+
+				}
+			})
+		})
+	})
+</script>
+
+<h2>MY CART</h2>
+
+<div class="container">
+
+<div class="row">
+	
+
+	
+<form id="order_form" method="POST" action="{% url 'placeOrder' %}">
+	{% csrf_token %}
+
+<table class="table table-striped table-hover table-responsive">
+	<tr>
+		<th>Product</th>
+		<th>Quantity</th>
+		<th>Total_price</th>
+		<th>Select</th>
+		<th>Action</th>
+	</tr>
+	{% for v in view %}
+<!-- <input type="hidden" id='userid' value="{{v.User.id}}"> -->
+	<tr>
+		<td>
+			<div class="row">
+				<div class="col-lg col-md col-sm">
+
+
+				<img src="{{v.Food.Image.url}}" width="200px" height="200px">
+				</div>
+				<div class="col-lg col-md col-sm ">
+			<b id="food">{{v.Food.Food}}</b><br>
+			₹<b id="price{{v.id}}">{{v.Price}}</b>
+		</div>
+		
+	</div>
+		</td>
+		<td><b><input type="text" name="quantity" class="form-control" value="{{v.Quantity}}" style=" width: 25%;" id="number{{v.id}}" readonly></b>
+	
+			<input type="button" onclick="incrementValue({{v.id}})" class="btn btn-success" value="+" min="0">
+			 <input type="button" onclick="decrementValue({{v.id}})" class="btn btn-info" value="-" min="0">
+		</td>
+		
+
+		<td><b><input type="text" name="total" class="form-control" id="total_price{{v.id}}" readonly value="{{v.Total_Price}}"></b></td>
+		<td><input type="checkbox" name="checkbox[]" class="form-check-input check" value="{{v.id}}" id="check{{v.id}}"></td>
+		<td><a href="{% url 'deleteFromcart' v.id %}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+		</a></td>
+	</tr>
+
+	{% endfor %}
+	<tr>
+		<td>Select table</td>
+		<td>
+
+			<select class="form-select" name="table" id="table">
+				<option value="--select--"></option>
+				{% for d in din %}
+				<option value="{{d.id}}">{{d.Name}}</option>
+				{% endfor %}
+			</select>
+		</td>
+		<td>
+			<input type="number" name="extra" class="form-control" min="0" max="10" placeholder="Extra chair if any">
+		</td>
+		<td><input type="date" name="date" class="form-control" id="date"></td>
+		<td><select class="form-select" name="slot" id="time">
+
+			<option value="">--select Time--</option>
+			<option value="09-10">09-10 AM</option><hr>
+			<option value="10.30-11.30">10.30-11.30 AM</option>
+			<option value="12-01">12-01 PM</option>
+			<option value="1.30-2.30">1.30-2.30 PM</option>
+			<option value="03-04">03-04 PM</option>
+			<option value="4.30-5.30">4.30-5.30 EVNG</option>
+			<option value="06-07">06-07 EVNG</option>
+			<option value="7.30-8.30">7.30-8.30 EVNG</option>
+			<option value="09-10">9-10 EVNG</option>
+
+		</select>
+		</td>
+
+
+	</tr>
+	<tr>
+		<td>
+			<textarea class="form-control" name="spclrqst" placeholder="Special Request if any"></textarea>
+		</td>
+		<td><input type="hidden" name="amnt" id='totalprice'></td>
+	</tr>
+</table>
+	
+
+<input type="submit" value="PLACE ORDER" class="btn btn-success" id="place_order" onclick="return validation()">
+	<!-- </div> -->
+	<!-- <button class="btn btn-primary" type="button"id='click'>Home delivey</button> -->
+	<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary"  onclick="return validate()">
+	Home Delivery
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <textarea name="address"  placeholder="Address" id="address" class="form-control"></textarea>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-success" id='click' onclick="return vali()">Place Order</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</form>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+Modal 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	{% for v in tabs %}
+      	<img src="{{v.Image.url}}">
+
+      	{% endfor %}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="del">
+	Launch demo modal
+  </button>
+  
+   Modal 
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+			<form method="POST" action="#">
+				{% csrf_token %}
+				{% for u in user %}
+				<input type="text" name="amnt" id='totalamount'>
+				<input type="text" name="name" class="form-control mt-2" placeholder="Name" value="{{u.Username}}" readonly>
+				<input type="text" name="phone" class="form-control mt-2" placeholder="Phone" value="{{u.Phone}}">
+				<input type="text" id="qnt">
+				{% endfor %}
+				<textarea class="form-control mt-2" placeholder="Address"></textarea>
+
+			</form>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div> -->
+<h4 class="text-center text-primary" ><u>Table Positions</u></h4>
+<div id="file"></div>
+</div>
+
+</div>
+
+
+
+{%if messages %}
+{%for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

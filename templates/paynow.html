@@ -1,0 +1,96 @@
+{% extends 'userbase.html' %}
+{% block title %}Payment {% endblock title %}
+{% block content %}
+
+<script>
+  
+  function validation(){
+    var name=document.getElementById('Name')
+    var num=document.getElementById('Num')
+    var date=document.getElementById('Date')
+    var cv=document.getElementById('CV')
+
+
+    if (name.value.length==0){
+      alert("Enter Holder Name")
+      return false;
+    }
+    else if(num.value.length==0){
+      alert("Enter Card Number")
+      return false;
+    }
+    else if(date.value.length==0){
+      alert("Choose Expiry Month")
+      return false;
+    }
+    else if(cv.value.length==0){
+      alert("Enter CVC")
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
+</script>
+<h2>Payment</h2>
+<div class="container m-5">
+
+	<div class="row border">
+		<form method="POST" action="{% url 'payNowAction' %}">
+			{% csrf_token %}
+			{% for v in views %}
+			<input type="hidden" name="id" value="{{v.Order_id}}">
+			<table>
+				<tr>
+					<th>
+						Cardholders_Name:
+					</th>
+					<td><input type="text" name="name" class="form-control" id="Name"></td>
+				</tr>
+				<tr>
+					<th>Card_Number</th>
+					<td><input type="text" name="number" class="form-control" id="Num"></td>
+						<td><img src="/static/images/payment.jpg" width="150px" height="100px"></td>
+				</tr>
+				<tr>
+					<th>Amount</th>
+					<td><input type="text" name="amount" class="form-control" value="₹{{v.Total_Price}}" readonly></td>
+					<!-- {% for d in table %} -->
+					<!-- <td><input type="text" name="charge" class="form-control" value="{{d.Charge}}"></td> -->
+					<!-- {% endfor %} -->
+				</tr>
+				<tr>
+					<th>Exp_date:</th>
+					<td><input type="month" name="date" class="form-control" min="2019-01" id="Date"></td>
+					<td><input type="text" name='cv' class="form-control" placeholder="CV" id="CV"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="PAY" class="btn btn-success" onclick="return validation()"></td>
+				</tr>
+			</table>
+			{% endfor %}
+		</form>
+	</div>
+	</div>
+
+
+
+
+
+{%if messages %}
+{%for msg in messages%}
+<script>
+    alert('{{msg}}')
+</script>
+{%endfor%}
+{%endif%}
+{% endblock %}
+
+
+
+
+
+
+
+

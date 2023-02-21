@@ -1,0 +1,125 @@
+{% extends 'managerbase.html' %}
+{% block title %} Dinning options {% endblock title %}
+
+{% block content %}
+<script>
+	function validation()
+	{
+		var table=document.getElementById('Table')
+		var chair=document.getElementById('Chair')
+
+
+		if (table.value.length==0){
+			alert("Insert a dinning")
+			return false;
+		}
+		else if(chair.value.length==0){
+			alert("Enter No.of Chairs")
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+</script>
+<h2>Dinning Tables</h2>
+<div class="container">
+	<div class="row border">
+		<div class="col-lg col-md col-sm">
+			<form method="POST" action="{% url 'dinningTablesAction' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+		<table>
+			<tr>
+				
+				<th>
+					Table_Name:
+				</th>
+				<td>
+					<input type="text" name="name" class="form-control" id="Table">
+				</td>
+				<th>Chairs:</th>
+				<td><input type="text" name="chair" class="form-control" id="Chair"></td>
+				<th>Image:</th>
+				<td>
+					<!-- <textarea name="file" class="form-control" rows="3"></textarea> -->
+					<input type="file" name="file" class='form-control'>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="ADD" class="btn btn-primary w-100" onclick="return validation()">
+				</td>
+			</tr>
+
+		</table>
+
+	</form>
+		</div>
+
+	</div>
+	<div class="col-lg col-md col-sm ">
+			<form method="POST" action="{% url 'dinningActivateAction' %}">
+				{% csrf_token %}
+			<table class="table table-bordered table-striped table-hover table-responsive mt-5">
+					
+				<tr>
+					<th>Table_Name</th>
+					<th>Chair</th>
+					<th>Activate</th>
+					
+					<th>Booked_Status</th>
+					<th>Action</th>
+					<!-- <th>Change status</th> -->
+					<th>Is_Active</th>
+
+					
+				</tr>
+				{% for v in views %}
+				<tr>
+					<td>{{v.Name}}</td>
+					<td>{{v.Chair}}</td>
+					<td><input type="checkbox" name="activate" value="{{v.id}}" class="form-check-input"></td>
+					<td>{{v.Booked_Status}}</td>
+					<td><a href="{% url 'deleteTable' v.id %}" class="btn btn-danger">DELETE</a>
+						</td>
+						
+					<td>{{v.is_active}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+			<input type="submit" name="ACTIVATE" class="btn btn-primary">
+		</form>
+		
+		</div>
+		<!-- <div class="col-lg col-md col-sm">
+
+			<table class="table table-bordered table-striped table-hover table-responsive">
+				
+					<tr>
+						
+						<th>Table</th>
+						<th>Time</th>
+						<th>Date</th>
+					</tr>
+					{% for t in table %}
+					<tr>
+						<td>{{t.Table.Name}}</td>
+						<td>{{t.Time}}</td>
+						<td>{{t.Date}}</td>
+						
+					</tr>
+
+				{% endfor %}
+
+			</table>
+
+		</div> -->
+</div>
+
+
+
+
+
+
+{% endblock content %}
