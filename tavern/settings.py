@@ -135,10 +135,10 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
 # EMAIL SETTINGS
-
-
-# EMAIL_USE_TLS=False
-# EMAIL_HOST = 'smtp.mailtrap.io'
-# EMAIL_HOST_USER = '11fa9a95d39110'
-# EMAIL_HOST_PASSWORD = 'd64f2904f456ab'
-# EMAIL_PORT = '2525'
+#This is something that used to send the dummy mail for a test purpose 
+# done with the help of mailtrap.io
+EMAIL_USE_TLS=False
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '11fa9a95d39110'
+EMAIL_HOST_PASSWORD = 'd64f2904f456ab'
+EMAIL_PORT = '2525'

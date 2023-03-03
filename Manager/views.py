@@ -174,13 +174,13 @@ def confirmOrder(request,id):
 	print(email)
 	print(mail)
 	print(name)
-# 	send_mail(
-#     'YOUR ORDER HAS BEEN CONFIRMED', #subject goes here
-#     'Sir'+name+',' '\nyour order has been confirmed with the order ID'+order, #Message goes here
-#     'jelori9693@prolug.com', #temp mail from temp mail.org[from mail]
-#     [mail],# to mail
-#     fail_silently=False,
-# )
+	send_mail(
+    'YOUR ORDER HAS BEEN CONFIRMED', #subject goes here
+    'Sir'+name+',' '\nyour order has been confirmed with the order ID'+order, #Message goes here
+    'jelori9693@prolug.com', #temp mail from temp mail.org[from mail]
+    [mail],# to mail
+    fail_silently=False,
+)
 	return redirect('viewFoodOrder')
 
 def reservation(request):
