@@ -25,3 +25,6 @@ asgiref==3.6.0
 Django==4.1.6 
 sqlparse==0.4.3 
 tzdata==2022.7
+
+
+While running this project internet shuld be work properly 
